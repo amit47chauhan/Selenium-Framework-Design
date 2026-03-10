@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StandAloneTest {
+public class submitOrderTest {
     public static void main(String[] args) {
 
         String productName = "ZARA COAT 3";
@@ -34,16 +34,11 @@ public class StandAloneTest {
         // initializing Web-driver
         WebDriver driver = new ChromeDriver(options);
 
-        LandingPage landingPage = new LandingPage(driver);
-
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        driver.get("https://rahulshettyacademy.com/client");
-
-        // Entering id and pass to log-in
-        driver.findElement(By.id("userEmail")).sendKeys("virat.kohli@gmail.com");
-        driver.findElement(By.id("userPassword")).sendKeys("Virat@123");
-        driver.findElement(By.id("login")).click();
+        LandingPage landingPage = new LandingPage(driver);
+        landingPage.goTo();
+        landingPage.loginApplication("virat.kohli@gmail.com","Virat@123");
 
         // Explicitly waiting for 5 seconds to load all the products
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
