@@ -1,7 +1,9 @@
 package amitchauhan;
 
+import amitchauhan.pageobjects.CartCatalogue;
 import amitchauhan.pageobjects.LandingPage;
 import amitchauhan.pageobjects.ProductCatalogue;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -43,24 +45,16 @@ public class submitOrderTest {
         landingPage.loginApplication("virat.kohli@gmail.com","Virat@123");
 
         ProductCatalogue productCatalogue = new ProductCatalogue(driver);
-        List<WebElement> products = productCatalogue.getProductList();
+        CartCatalogue cartCatalogue = new CartCatalogue(driver);
+
         productCatalogue.addProductToCart(productName);
+        productCatalogue.goToCart();
+        Boolean match = cartCatalogue.verifyProductDisplay(productName);
+        Assert.assertTrue(match);
+        cartCatalogue.goToCheckout();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        // checking for loading screen to disappear after adding product to cart
 
-
-        //clicking on cart
-        driver.findElement(By.cssSelector("[routerlink*='cart']")).click();
-
-        // Getting list of all the product added to cart and checking if its matches with the product name which
-        // we had added earlier
-
-        List<WebElement> cartProducts = driver.findElements(By.cssSelector(".cartSection h3"));
-        boolean match = cartProducts.stream().anyMatch(
-                cartProduct -> cartProduct.getText().equalsIgnoreCase(productName)
-        );
-        Assert.assertTrue(match);
 
         // Clicking on the checkout button to proceed further
         driver.findElement(By.cssSelector(".totalRow button")).click();
