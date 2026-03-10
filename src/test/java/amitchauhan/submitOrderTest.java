@@ -1,6 +1,7 @@
 package amitchauhan;
 
 import amitchauhan.pageobjects.LandingPage;
+import amitchauhan.pageobjects.ProductCatalogue;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -40,24 +41,11 @@ public class submitOrderTest {
         landingPage.goTo();
         landingPage.loginApplication("virat.kohli@gmail.com","Virat@123");
 
-        // Explicitly waiting for 5 seconds to load all the products
+        ProductCatalogue productCatalogue = new ProductCatalogue(driver);
+        List<WebElement> products = productCatalogue.getProductList();
+        productCatalogue.addProductToCart(productName);
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".mb-3")));
-
-        // Getting list of all the products available
-        List<WebElement> products = driver.findElements(By.cssSelector(".mb-3"));
-
-        //Finding product with name containing ZARA COAT 3
-        WebElement prod = products.stream().filter(
-                product -> product.findElement(By.cssSelector("b"))
-                        .getText()
-                        .equals(productName)
-        ).findFirst().orElse(null);
-
-        assert prod != null;
-        // Clicking on Add to cart button
-        prod.findElement(By.cssSelector(".card-body button:last-of-type")).click();
-
         // Waiting for to check if add to cart notification popped or not
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#toast-container")));
         // checking for loading screen to disappear after adding product to cart
