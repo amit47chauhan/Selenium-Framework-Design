@@ -39,6 +39,7 @@ public class submitOrderTest {
 
         LandingPage landingPage = new LandingPage(driver);
         landingPage.goTo();
+        driver.manage().window().maximize();
         landingPage.loginApplication("virat.kohli@gmail.com","Virat@123");
 
         ProductCatalogue productCatalogue = new ProductCatalogue(driver);
@@ -46,10 +47,8 @@ public class submitOrderTest {
         productCatalogue.addProductToCart(productName);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        // Waiting for to check if add to cart notification popped or not
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#toast-container")));
         // checking for loading screen to disappear after adding product to cart
-        wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.cssSelector(".ng-animating"))));
+
 
         //clicking on cart
         driver.findElement(By.cssSelector("[routerlink*='cart']")).click();
