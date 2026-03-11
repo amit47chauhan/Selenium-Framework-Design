@@ -1,5 +1,6 @@
 package amitchauhan.AbstractComponents;
 
+import amitchauhan.pageobjects.CartCatalogue;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,8 +21,10 @@ public class AbstractComponent {
     @FindBy(css = "[routerlink*='cart']")
     WebElement cart;
 
-    public void goToCart(){
+    public CartCatalogue goToCart(){
         cart.click();
+        CartCatalogue cartCatalogue = new CartCatalogue(driver);
+        return cartCatalogue;
     }
 
     public void waitForElementToAppear(By findBy){

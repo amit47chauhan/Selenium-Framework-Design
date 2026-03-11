@@ -42,13 +42,11 @@ public class submitOrderTest {
         LandingPage landingPage = new LandingPage(driver);
         landingPage.goTo();
         driver.manage().window().maximize();
-        landingPage.loginApplication("virat.kohli@gmail.com","Virat@123");
 
-        ProductCatalogue productCatalogue = new ProductCatalogue(driver);
-        CartCatalogue cartCatalogue = new CartCatalogue(driver);
+        ProductCatalogue productCatalogue = landingPage.loginApplication("virat.kohli@gmail.com","Virat@123");
 
         productCatalogue.addProductToCart(productName);
-        productCatalogue.goToCart();
+        CartCatalogue cartCatalogue = productCatalogue.goToCart();
         Boolean match = cartCatalogue.verifyProductDisplay(productName);
         Assert.assertTrue(match);
         cartCatalogue.goToCheckout();
