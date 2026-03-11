@@ -1,7 +1,6 @@
 package amitchauhan.pageobjects;
 
 import amitchauhan.AbstractComponents.AbstractComponent;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,8 +33,10 @@ public class CartCatalogue extends AbstractComponent {
         return match;
     }
 
-    public void goToCheckout(){
+    public CheckoutPage goToCheckout(){
         checkOut.click();
+        CheckoutPage checkoutPage = new CheckoutPage(driver);
+        return checkoutPage;
     }
 
 }
