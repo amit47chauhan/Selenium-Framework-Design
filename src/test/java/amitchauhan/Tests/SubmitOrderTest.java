@@ -12,7 +12,7 @@ public class SubmitOrderTest extends BaseTest {
     public void submitOrder() throws IOException {
         String productName = "ZARA COAT 3";
         String countryName = "india";
-        LandingPage landingPage = launchApplication();
+
         ProductCatalogue productCatalogue = landingPage.loginApplication("virat.kohli@gmail.com", "Virat@123");
         productCatalogue.addProductToCart(productName);
 
@@ -27,7 +27,5 @@ public class SubmitOrderTest extends BaseTest {
         String confirmMessage = confirmPage.confirmMessage();
 
         Assert.assertTrue(confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
-
-        driver.close();
     }
 }

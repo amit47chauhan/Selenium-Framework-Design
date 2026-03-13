@@ -4,6 +4,8 @@ import amitchauhan.pageobjects.LandingPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,7 +16,7 @@ import java.util.Properties;
 
 public class BaseTest {
     public WebDriver driver;
-
+    public LandingPage landingPage;
     public WebDriver initializeDriver() throws IOException {
         //Property class - Using this class we can parse .properties files and extract all global parameter value.
         Properties prop = new Properties();
@@ -44,10 +46,16 @@ public class BaseTest {
         return driver;
     }
 
+    @BeforeMethod
     public LandingPage launchApplication() throws IOException {
         driver = initializeDriver();
-        LandingPage landingPage = new LandingPage(driver);
+        landingPage = new LandingPage(driver);
         landingPage.goTo();
         return landingPage;
+    }
+
+    @AfterMethod
+    public  void tearDown(){
+        driver.close();
     }
 }
