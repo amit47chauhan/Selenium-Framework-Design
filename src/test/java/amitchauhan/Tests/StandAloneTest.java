@@ -1,4 +1,4 @@
-package amitchauhan;
+package amitchauhan.Tests;
 
 import amitchauhan.pageobjects.LandingPage;
 import org.openqa.selenium.By;
