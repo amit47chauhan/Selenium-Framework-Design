@@ -8,11 +8,11 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 public class SubmitOrderTest extends BaseTest {
+    String productName = "ZARA COAT 3";
+    String countryName = "india";
+
     @Test
     public void submitOrder() throws IOException {
-        String productName = "ZARA COAT 3";
-        String countryName = "india";
-
         ProductCatalogue productCatalogue = landingPage.loginApplication("virat.kohli@gmail.com", "Virat@123");
         productCatalogue.addProductToCart(productName);
 
@@ -27,5 +27,12 @@ public class SubmitOrderTest extends BaseTest {
         String confirmMessage = confirmPage.confirmMessage();
 
         Assert.assertTrue(confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
+    }
+
+    @Test(dependsOnMethods = {"submitOrder"})
+    public void orderHistoryCheck(){
+        ProductCatalogue productCatalogue = landingPage.loginApplication("virat.kohli@gmail.com", "Virat@123");
+        OrderPage orderPage = productCatalogue.goToOrder();
+        Assert.assertTrue(orderPage.verifyOrderDisplay(productName));
     }
 }
