@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="suite">
+<!-- parallel = "tests"/"methods" -->
+<suite parallel="tests" name="suite">
+<!--    thread-count = "5" means maximum of 5 methods will run parallely -->
     <test thread-count="5" name="Submit Order Test">
         <classes>
             <class name="amitchauhan.Tests.SubmitOrderTest"/>
