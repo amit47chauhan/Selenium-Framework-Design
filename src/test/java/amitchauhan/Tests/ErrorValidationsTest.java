@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class ErrorValidationsTest extends BaseTest {
 
-    @Test
+    @Test(groups = {"ErrorHandling"})
     public void loginErrorValidation(){
         landingPage.loginApplication("virat.kohli@gmail.com", "Virat");
         Assert.assertEquals(landingPage.getErrorMessage(), "Incorrect email or password.");
